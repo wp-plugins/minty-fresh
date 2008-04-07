@@ -1,16 +1,16 @@
 === Minty Fresh ===
 Contributors: skullbit
 Donate link: http://skullbit.com/donate
-Tags: stats, statistics, mint
+Tags: login, logout, htaccess, custom, url
 Requires at least: 2.3
 Tested up to: 2.5
-Stable tag: 1.0
+Stable tag: 1.1
 
 Integrate the Mint Statistic package within your WordPress Admin.  Requires an installation of <a href="http://haveamint.com">Mint</a>.
 
 == Description ==
 
-This plugin will integrate the <a href="http://haveamint.com">Mint</a> Statistics app with your WordPress Administration.  You can set it to have a Panel that shows an iframe of Mint or have it open in it's own window, or if you don't want to see it in the WP Admin, you can just use it to embed the Mint Javascript needed to log your traffic.
+This plugin will integrate the <a href="http://haveamint.com">Mint</a> Statistics app with your WordPress Administration.  You can set it to have a Panel that shows an iframe of Mint or have it open in it's own window, or just use it to embed the Mint Javascript needed to log traffic.
 
 <a href="http://haveamint.com">Mint</a> not included.
 
@@ -30,3 +30,7 @@ Make sure you've set the Mint Directory correctly on the Settings Panel.  There 
 
 1. Minty Fresh Settings
 2. Mint Panel
+
+== CHANGELOG ==
+v1.1 April 6 2008 
+* Fixed https issue, fixed footer script location.

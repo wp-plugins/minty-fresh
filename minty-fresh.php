@@ -4,8 +4,12 @@ Plugin Name: Minty Fresh
 Plugin URI: http://www.skullbit.com/
 Description: Integrate the Mint Statistic package within your WordPress Admin.  Requires an installation of <a href="http://haveamint.com">Mint</a>.
 Author: Skullbit
-Version: 1.0
+Version: 1.1
 Author URI: http://www.skullbit.com
+
+--- CHANGELOG ---
+v1.1 April 6 2008 
+	* Fixed https issue, fixed footer script location.
 */
 if( !class_exists('MintyFreshPlugin') ){
 	class MintyFreshPlugin{
@@ -17,8 +21,10 @@ if( !class_exists('MintyFreshPlugin') ){
 				add_action( 'init', array($this, 'DefaultSettings') );
 			if( $_GET['page'] == 'minty-fresh' )
 				wp_enqueue_script('jquery');
-			if( get_option('minty_logging') )
+			if( get_option('minty_logging') && get_option('minty_script_location') == 'head' )
 				add_action( 'wp_head', array($this, 'MintyLoggingJS') );
+			else if( get_option('minty_logging') && get_option('minty_script_location') == 'footer' )
+				add_action( 'wp_footer', array($this, 'MintyLoggingJS') );
 			if( get_option('minty_panel') == 'top-window' && $_GET['page'] == 'minty-fresh')
 				add_action( 'init', array($this, 'MintyWindow') );
 				
@@ -156,7 +162,7 @@ if( !class_exists('MintyFreshPlugin') ){
 		}
 		
 		function MintyLoggingJS(){
-			echo '<script src="'.trailingslashit( str_replace('http', 'https', get_option('siteurl')) ) . get_option('minty_dir').'/?js" type="text/javascript"></script>';
+			echo '<script src="'.trailingslashit( get_option('siteurl') ) . get_option('minty_dir').'/?js" type="text/javascript"></script>';
 		}
 		
 		function MintyWindow(){
