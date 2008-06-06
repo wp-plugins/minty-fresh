@@ -4,10 +4,12 @@ Plugin Name: Minty Fresh
 Plugin URI: http://www.skullbit.com/
 Description: Integrate the Mint Statistic package within your WordPress Admin.  Requires an installation of <a href="http://haveamint.com">Mint</a>.
 Author: Skullbit
-Version: 1.1
+Version: 1.2
 Author URI: http://www.skullbit.com
 
 --- CHANGELOG ---
+v1.2 June 6 2008 
+	* Altered panel height calculation and removed footer.  Works with Ozh Admin Drop Down Menus.
 v1.1 April 6 2008 
 	* Fixed https issue, fixed footer script location.
 */
@@ -25,8 +27,7 @@ if( !class_exists('MintyFreshPlugin') ){
 				add_action( 'wp_head', array($this, 'MintyLoggingJS') );
 			else if( get_option('minty_logging') && get_option('minty_script_location') == 'footer' )
 				add_action( 'wp_footer', array($this, 'MintyLoggingJS') );
-			if( get_option('minty_panel') == 'top-window' && $_GET['page'] == 'minty-fresh')
-				add_action( 'init', array($this, 'MintyWindow') );
+
 				
 			register_deactivation_hook( __FILE__, array($this, "UnsetSettings") );
 		}
@@ -145,17 +146,24 @@ if( !class_exists('MintyFreshPlugin') ){
 			echo '<p>' . __('You\'ve set your ', 'mintyfresh') . get_option('minty_panel_name') . __(' Panel to open in a new window.  If a new window has not opened, ', 'mintyfresh') . '<a href="' . trailingslashit( get_option('siteurl') ) . get_option('minty_dir') . '" target="_blank">' . __('click here', 'mintyfresh') . '</a>.</p></div>';
 			}else{
 			
+			if( function_exists( 'wp_ozh_adminmenu' ) ) $less = 90;
+			else $less = 135;
 			?>
             <script type="text/javascript">
 				
 				jQuery(document).ready(function() {
 					var h = jQuery(window).height();
-					jQuery('#mintyfresh').height(h-250);
+					jQuery('#mintyfresh').height(h-<?php echo $less;?>);
 					jQuery(window).resize(function(){
-						jQuery('#mintyfresh').height(h-250);
+						jQuery('#mintyfresh').height(h-<?php echo $less;?>);
 					});
 				});
 			</script>
+            <style type="text/css">
+				#footer{ display:none; }
+				#wpcontent{ padding-bottom: 0; }
+				#mintyfresh{ margin-top:-15px; }
+			</style>
             <iframe id="mintyfresh" width="100%" height="400px" frameborder="0" scrolling="auto" src="<?php echo trailingslashit( get_option('siteurl') ) . get_option('minty_dir');?>"></iframe>
             <?php
 			}
@@ -165,9 +173,7 @@ if( !class_exists('MintyFreshPlugin') ){
 			echo '<script src="'.trailingslashit( get_option('siteurl') ) . get_option('minty_dir').'/?js" type="text/javascript"></script>';
 		}
 		
-		function MintyWindow(){
-			
-		}
+
 	}
 } // END Class MintyFreshPlugin
 
