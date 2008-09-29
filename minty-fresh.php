@@ -4,10 +4,12 @@ Plugin Name: Minty Fresh
 Plugin URI: http://www.skullbit.com/
 Description: Integrate the Mint Statistic package within your WordPress Admin.  Requires an installation of <a href="http://haveamint.com">Mint</a>.
 Author: Skullbit
-Version: 1.2
+Version: 1.3
 Author URI: http://www.skullbit.com
 
 --- CHANGELOG ---
+v1.3 Sept 29 2008
+	* Added SSL Support
 v1.2 June 6 2008 
 	* Altered panel height calculation and removed footer.  Works with Ozh Admin Drop Down Menus.
 v1.1 April 6 2008 
@@ -170,7 +172,11 @@ if( !class_exists('MintyFreshPlugin') ){
 		}
 		
 		function MintyLoggingJS(){
-			echo '<script src="'.trailingslashit( get_option('siteurl') ) . get_option('minty_dir').'/?js" type="text/javascript"></script>';
+			if($_SERVER['HTTPS']):
+				echo '<script src="'.trailingslashit( str_replace('http://', 'https://', get_option('siteurl')) ) . trailingslashit( get_option('minty_dir') ).'?js" type="text/javascript"></script>';
+			else:
+				echo '<script src="'.trailingslashit( get_option('siteurl') ) . trailingslashit( get_option('minty_dir') ).'?js" type="text/javascript"></script>';
+			endif;
 		}
 		
 
