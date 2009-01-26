@@ -1,7 +1,7 @@
 === Minty Fresh ===
 Contributors: devbit, skullbit
 Donate link: http://skullbit.com/donate
-Tags: login, logout, htaccess, custom, url
+Tags: statistics, stats, mint, haveamint
 Requires at least: 2.3
 Tested up to: 2.7
 Stable tag: 1.3.1
