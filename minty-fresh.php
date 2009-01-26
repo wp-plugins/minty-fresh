@@ -4,10 +4,12 @@ Plugin Name: Minty Fresh
 Plugin URI: http://www.skullbit.com/
 Description: Integrate the Mint Statistic package within your WordPress Admin.  Requires an installation of <a href="http://haveamint.com">Mint</a>.
 Author: Skullbit
-Version: 1.3
+Version: 1.3.1
 Author URI: http://www.skullbit.com
 
 --- CHANGELOG ---
+v1.3.1 Jan 25, 2009
+	* Added menu icon for WP 2.7
 v1.3 Sept 29 2008
 	* Added SSL Support
 v1.2 June 6 2008 
@@ -19,6 +21,7 @@ if( !class_exists('MintyFreshPlugin') ){
 	class MintyFreshPlugin{
 		function MintyFreshPlugin() { //contructor
 			add_action( 'admin_menu', array($this,'AddPanel') );
+			add_action( 'admin_head', array($this, 'icon_css') );
 			if( $_POST['action'] == 'minty_fresh_update' )
 				add_action( 'init', array($this,'SaveSettings') );
 			if( !get_option('minty_panel') )
@@ -34,10 +37,22 @@ if( !class_exists('MintyFreshPlugin') ){
 			register_deactivation_hook( __FILE__, array($this, "UnsetSettings") );
 		}
 		
+		function icon_css(){
+			echo '<style type="text/css">
+			#toplevel_page_minty-fresh div.wp-menu-image {
+			  background:transparent url("'.trailingslashit(get_option('siteurl')).'wp-content/plugins/minty-fresh/mint_menu.png") no-repeat center -32px;
+			} 
+			#toplevel_page_minty-fresh:hover div.wp-menu-image, #toplevel_page_minty-fresh.current div.wp-menu-image {
+			  background:transparent url("'.trailingslashit(get_option('siteurl')).'wp-content/plugins/minty-fresh/mint_menu.png") no-repeat center 0px;
+			}
+			</style>';
+		
+		}
+		
 		function AddPanel(){
 			add_options_page( 'Minty Fresh', 'Minty Fresh', 10, 'minty-fresh-settings', array($this, 'MintySettings') );
 			if( get_option('minty_panel') == 'top-iframe' || get_option('minty_panel') == 'top-window' )
-				add_menu_page( get_option('minty_panel_name'), get_option('minty_panel_name'), get_option('minty_user_role'), 'minty-fresh', array($this, 'MintyPanel') );
+				add_menu_page( get_option('minty_panel_name'), get_option('minty_panel_name'), get_option('minty_user_role'), 'minty-fresh', array($this, 'MintyPanel'), 'div' );
 		}
 		
 		function DefaultSettings () {

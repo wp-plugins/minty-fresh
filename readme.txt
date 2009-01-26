@@ -1,10 +1,10 @@
 === Minty Fresh ===
-Contributors: skullbit
+Contributors: devbit, skullbit
 Donate link: http://skullbit.com/donate
 Tags: login, logout, htaccess, custom, url
 Requires at least: 2.3
-Tested up to: 2.5.1
-Stable tag: 1.3
+Tested up to: 2.7
+Stable tag: 1.3.1
 
 Integrate the Mint Statistic package within your WordPress Admin.  Requires an installation of <a href="http://haveamint.com">Mint</a>.
 
@@ -32,12 +32,18 @@ Make sure you've set the Mint Directory correctly on the Settings Panel.  There 
 2. Mint Panel
 
 == CHANGELOG ==
+**v1.3.1 Jan 25, 2009**
 
-v1.3 Sept 29 2008
+* Added menu icon for WP 2.7
+
+**v1.3 Sept 29 2008**
+
 * Added SSL Support
 
-v1.2 June 6 2008 
+**v1.2 June 6 2008 **
+
 * Altered panel height calculation and removed footer.  Works with Ozh Admin Drop Down Menus.
 
-v1.1 April 6 2008 
+**v1.1 April 6 2008 **
+
 * Fixed https issue, fixed footer script location.
